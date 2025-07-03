@@ -12,18 +12,42 @@ declare global {
   }
   
 const userService = new UserService();
-export function authCheck(req: Request, res: Response, next: NextFunction) {
-    
-
-    const userEmail = req.headers['email'] as string;
-    if (userEmail == "" || !userEmail) {
-        return res.status(401).json({ message: 'Unauthorized' });
+export function authCheck(req: Request, res: Response, next: NextFunction): void {
+    const api_key = req.headers['api_key'] as string;
+    if (api_key == "" || !api_key) {
+         res.status(401).json({ message: 'Unauthorized' });
+         return
     }
 
-    const user = userService.getByEmailService(userEmail);
+    const user = userService.getByEmailService(api_key);
+
 
     if (!user) {
-        return res.status(401).json({ message: 'Unauthorized' });
+         res.status(401).json({ message: 'Unauthorized' });
+         return
+    }
+   
+    req.userDetail = user; 
+    next();
+}
+
+
+export function adminAuthCheck(req: Request, res: Response, next: NextFunction): void {
+    
+    const api_key = req.headers['api_key'] as string;
+    if (api_key == "" || !api_key) {
+         res.status(401).json({ message: 'Unauthorized' });
+         return
+    }
+    const user = userService.getByEmailService(api_key);
+    // log user for debugging
+    if (user?.role !== 'SuperAdmin') {
+         res.status(403).json({ message: 'Forbidden' });
+         return
+    }
+    if (!user) {
+         res.status(401).json({ message: 'Unauthorized' });
+         return
     }
    
     req.userDetail = user; 

@@ -6,7 +6,11 @@ import {
 } from '../repositories/users.repositories';
 
 export class UserService {
-  createUserService(user: User): User {
+  createUserService(user: User): User |{ error: string }{
+    //const existingUser = getUserByEmail(user.email);
+     // if (existingUser) {
+        //return { error: `User with email ${user.email} already exists` };
+     // }
     return createUser(user);
   }
 
