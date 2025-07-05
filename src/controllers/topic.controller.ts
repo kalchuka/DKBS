@@ -68,4 +68,23 @@ export const getTopic = (req: Request, res: Response,  next: NextFunction): void
        } catch (error) {
     next(error);
 }
+
 };
+
+
+export const deleteTopic = (req: Request, res: Response,  next: NextFunction): void => {
+    const permissions = new PermissionStrategy(req.userDetail?.role ?? '');
+    if (!permissions.canDelete()) {
+        return ApiResponse.error(res, 'You do not have permission to delete topics', 403);
+    }
+    const topicId = req.params.topicId;
+       try {
+    const deletedTopic = NewUTopicService.deleteTopicService(topicId);
+    if (!deletedTopic) {
+        return ApiResponse.error(res, 'Topic not found', 404);
+    }
+    return ApiResponse.success(res, deletedTopic, 'Topic deleted successfully');
+       } catch (error) {
+    next(error);
+}
+}

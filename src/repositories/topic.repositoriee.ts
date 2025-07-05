@@ -30,3 +30,11 @@ export function getTopicbyId(topicId: number): Topics | null{
     const topicRepo = TopicDb();
     return topicRepo.find({ parentTopicId: topicId });
   }
+
+  export function deleteTopic(topicId: number): boolean {
+    const topicRepo = TopicDb();
+   const deleteTopic = topicRepo.findAndRemove({ topicId: topicId });
+      db.saveDatabase();
+      return true;
+  }
+

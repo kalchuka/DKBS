@@ -6,5 +6,6 @@ router.post('/',topicController.creatTopic);
 router.put('/:topicId', topicController.creatTopic);
 router.get('/', topicController.getTopic);
 router.get('/:topicId', topicController.getTopic);
+router.delete('/:topicId', topicController.deleteTopic);
 
 export default router;
