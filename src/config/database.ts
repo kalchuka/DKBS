@@ -23,7 +23,6 @@ function databaseInitialize() {
     
       //Users.clear();
       /// log Users
-
       if (Users.count() === 0) {
       const adminFilePath = path.join(__dirname, 'adminUser.json');
       const adminUserData = fs.readFileSync(adminFilePath, 'utf8');
@@ -38,19 +37,22 @@ function databaseInitialize() {
     }
 
     if (!db.getCollection<Topics>('topics')) {
-      db.addCollection<Topics>('topics', { unique: ['topicId'] });
+     db.addCollection<Topics>('topics', { unique: ['topicId'] });
+    }else{
+      const topics = db.getCollection<Topics>('topics');
+      // console.log('Permissions data:', topics);
+
     }
 
 
 
     let Permisions
-    // db.removeCollection('permisions');
-    if (!db.getCollection<TopicPermissions>('permisions')) {
-      Permisions =  db.addCollection<TopicPermissions>('permisions', { });
+    // db.removeCollection('permissions');
+    if (!db.getCollection<TopicPermissions>('permissions')) {
+      Permisions =  db.addCollection<TopicPermissions>('permissions', { });
      } else{
-        Permisions = db.getCollection<TopicPermissions>('permisions');
+        Permisions = db.getCollection<TopicPermissions>('permissions');
      }
-     console.log('Permissions data:', Permisions);
 
      if (Permisions.count() === 0) {
      const permisionFilePath = path.join(__dirname, 'permisionsData.json');

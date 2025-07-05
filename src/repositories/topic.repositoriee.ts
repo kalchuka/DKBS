@@ -18,11 +18,15 @@ export function createTopic(topic: Topics): Topics {
 
 export function getTopicbyId(topicId: number): Topics | null{
     const topicRepo = TopicDb();
-    console.log(`Fetching topic with ID: ${topicId}`);
     return topicRepo.findOne({topicId:Number(topicId)});
   }
 
   export function getAllTopicsRepo(): Topics[] | null{
     const topicRepo = TopicDb();
     return topicRepo.find() || null;
+  }
+
+  export function getChildren(topicId: number): Topics[] {
+    const topicRepo = TopicDb();
+    return topicRepo.find({ parentTopicId: topicId });
   }

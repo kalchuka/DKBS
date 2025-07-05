@@ -61,7 +61,7 @@ export const getTopic = (req: Request, res: Response,  next: NextFunction): void
             return ApiResponse.error(res, 'You do not have permission to Edit topics', 403);
         }
     const fetchTopic = NewUTopicService.getAllTopics(topicId);
-    if (!fetchTopic || fetchTopic.length === 0) {
+    if (!fetchTopic) {
         return ApiResponse.error(res, 'Topic not found', 404);
     }
     return ApiResponse.success(res, fetchTopic, 'Topic fetched successfully');

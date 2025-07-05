@@ -16,5 +16,9 @@ export interface Resource {
   type: ResourceType;
 }
 
+export interface TopicWithChildren extends Topics {
+  children: TopicWithChildren[];
+}
+
 export type ResourceType = 'Video' | 'Article' | 'Pdf' | 'Image' | 'Audio';
 
