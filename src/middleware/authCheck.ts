@@ -1,6 +1,7 @@
 import {Request, Response, NextFunction} from 'express';
 import { UserService } from '../services/user.service';
 import { User } from '../models/users.model';
+import { ApiResponse } from '../utils/apiResponse';
 
 
 declare global {
@@ -15,16 +16,16 @@ const userService = new UserService();
 export function authCheck(req: Request, res: Response, next: NextFunction): void {
     const api_key = req.headers['api_key'] as string;
     if (api_key == "" || !api_key) {
-         res.status(401).json({ message: 'Unauthorized' });
-         return
+     ApiResponse.error(res, 'Unauthorized', 401);
+     return
     }
 
     const user = userService.getByEmailService(api_key);
-
-
+    
     if (!user) {
-         res.status(401).json({ message: 'Unauthorized' });
-         return
+     ApiResponse.error(res, 'Unauthorized', 401);
+     return
+       
     }
    
     req.userDetail = user; 
@@ -41,7 +42,7 @@ export function adminAuthCheck(req: Request, res: Response, next: NextFunction):
     }
     const user = userService.getByEmailService(api_key);
     // log user for debugging
-    if (user?.role !== 'SuperAdmin') {
+    if (user?.role !== 'Admin') {
          res.status(403).json({ message: 'Forbidden' });
          return
     }

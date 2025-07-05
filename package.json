@@ -15,12 +15,15 @@
   "dependencies": {
     "dotenv": "^17.0.1",
     "express": "^5.1.0",
-    "lokijs": "^1.5.12"
+    "lokijs": "^1.5.12",
+    "nanoid": "^5.1.5",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",
     "@types/lokijs": "^1.5.14",
     "@types/node": "^24.0.10",
+    "@types/uuid": "^10.0.0",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3"
   }

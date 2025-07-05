@@ -1,8 +1,10 @@
 import Loki from 'lokijs';
-import { Topic } from '../models/topics.model';
+import { Topics } from '../models/topics.model';
 import { User } from '../models/users.model'
+import { TopicPermissions } from '../models/permision.model';
 import path from 'path';
 import fs from 'fs';
+import { ApiResponse } from '../utils/apiResponse';
 
 const db = new Loki('kb.json', {
   autoload: true,
@@ -35,9 +37,42 @@ function databaseInitialize() {
       db.saveDatabase();
     }
 
-    if (!db.getCollection<Topic>('topics')) {
-      db.addCollection<Topic>('topics', { unique: ['id'] });
+    if (!db.getCollection<Topics>('topics')) {
+      db.addCollection<Topics>('topics', { unique: ['topicId'] });
     }
+
+
+
+    let Permisions
+    // db.removeCollection('permisions');
+    if (!db.getCollection<TopicPermissions>('permisions')) {
+      Permisions =  db.addCollection<TopicPermissions>('permisions', { });
+     } else{
+        Permisions = db.getCollection<TopicPermissions>('permisions');
+     }
+     console.log('Permissions data:', Permisions);
+
+     if (Permisions.count() === 0) {
+     const permisionFilePath = path.join(__dirname, 'permisionsData.json');
+     const permissionsData = fs.readFileSync(permisionFilePath, 'utf8');
+       if (!permissionsData) {
+        ApiResponse.error(
+          { status: 500, json: (data: any) => console.error(data) },
+          'Permissions data not found',
+          500
+        );
+         return;
+       }
+       for (const permission of JSON.parse(permissionsData)) {
+         const permisson: TopicPermissions = {
+           ...permission,
+           createdAt: new Date(permission.createdAt),
+           updatedAt: new Date(permission.updatedAt),
+         };
+         Permisions.insert(permisson);
+       }
+     db.saveDatabase();
+   }
    
   }
 

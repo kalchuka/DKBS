@@ -1,0 +1,5 @@
+[{ "role": "Admin", "canCreate": true, "canEdit": true, "canDelete": true, "canView": true },
+
+{ "role": "Editor", "canCreate": true, "canEdit": true, "canDelete": false, "canView": true },
+
+{ "role": "Viewer", "canCreate": false, "canEdit": false, "canDelete": false, "canView": true }]
