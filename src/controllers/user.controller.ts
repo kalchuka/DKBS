@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { UserService } from '../services/user.service';
-import { User } from '../models/users.model';
+import { User ,Role} from '../models/users.model';
 import { ApiResponse } from '../utils/apiResponse';
 
 
@@ -8,6 +8,20 @@ const NewUserService = new UserService();
 
 export const create = (req: Request, res: Response,  next: NextFunction): void => {
     const userData: User = req.body;
+
+    if (!req.userDetail) {
+        return ApiResponse.error(res, "Unauthorized", 401);
+    }
+    if(req.userDetail.role !== Role.Admin) {
+        return ApiResponse.error(res, "You do not have permission to create users", 403);
+    }
+
+    if (!userData) {
+        return ApiResponse.error(res, "User data must be provided", 400);
+    }
+if (typeof userData !== 'object' || Array.isArray(userData)) {
+        return ApiResponse.error(res, "User data must be an object", 400);
+    }
 
     if (!userData.email || !userData.name) {
         return ApiResponse.error(res, "Email and name must be provided", 400);
@@ -17,7 +31,7 @@ export const create = (req: Request, res: Response,  next: NextFunction): void =
         return ApiResponse.error(res, "Email and name must be strings", 400);
     }
 
-    if (userData.role && !['Admin', 'Editor', 'Viewer'].includes(userData.role)) {
+    if (userData.role && !Object.values(Role).includes(userData.role)) {
         return ApiResponse.error(res, "Role must be one of Admin, Editor, or Viewer",400);
     }
        try {

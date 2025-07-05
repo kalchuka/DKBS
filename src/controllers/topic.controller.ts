@@ -4,6 +4,7 @@ import { Topics } from '../models/topics.model';
 import { ApiResponse } from '../utils/apiResponse';
 import {PermissionStrategy} from '../permissionStrategy/permission';
 import { request } from 'http';
+import { log } from 'console';
 
 
 const NewUTopicService = new TopicService();

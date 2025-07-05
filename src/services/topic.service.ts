@@ -9,13 +9,16 @@ export class TopicService {
 constructor() {
 }
   createTopicService(topic: Topics): Topics | { error: string }{
+    if(topic.parentTopicId !== undefined) {
+return { error: 'Creating a topic with parent is not allowed' };
+    }
     const newTopic = TopicFactory.create(
       generateTopicId(8),
         topic.name,
         topic.content,
         topic.createdBy,
-        topic.parentTopicId,
-        topic.resources
+        nanoid(),
+        topic.resources,
     );
     return createTopic(newTopic);
   }
@@ -37,7 +40,8 @@ constructor() {
         newContent,
         updatedBy,
         generateTopicId(8),
-        resources
+        nanoid(),
+        resources,
       );
     return createTopic(newTopic);
   }

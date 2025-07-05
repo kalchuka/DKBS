@@ -1,6 +1,5 @@
 
 export interface User {
-  id: number;
   name: string;
   email: string;
   role: Role;
@@ -8,4 +7,8 @@ export interface User {
   updatedAt: Date;
 }
 
-export type Role = 'Admin' | 'Editor' | 'Viewer';
+export enum Role {
+  Admin = 'Admin',
+  Editor = 'Editor',
+  Viewer = 'Viewer'
+}

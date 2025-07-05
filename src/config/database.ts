@@ -16,7 +16,7 @@ const db = new Loki('kb.json', {
 function databaseInitialize() {
     let Users
     if (!db.getCollection<User>('users')) {
-       Users =  db.addCollection<User>('users', { unique: ['id','email'] });
+       Users =  db.addCollection<User>('users', { unique: ['email'] });
       } else{
          Users = db.getCollection<User>('users');
       }
@@ -43,38 +43,6 @@ function databaseInitialize() {
       // console.log('Permissions data:', topics);
 
     }
-
-
-
-    let Permisions
-    // db.removeCollection('permissions');
-    if (!db.getCollection<TopicPermissions>('permissions')) {
-      Permisions =  db.addCollection<TopicPermissions>('permissions', { });
-     } else{
-        Permisions = db.getCollection<TopicPermissions>('permissions');
-     }
-
-     if (Permisions.count() === 0) {
-     const permisionFilePath = path.join(__dirname, 'permisionsData.json');
-     const permissionsData = fs.readFileSync(permisionFilePath, 'utf8');
-       if (!permissionsData) {
-        ApiResponse.error(
-          { status: 500, json: (data: any) => console.error(data) },
-          'Permissions data not found',
-          500
-        );
-         return;
-       }
-       for (const permission of JSON.parse(permissionsData)) {
-         const permisson: TopicPermissions = {
-           ...permission,
-           createdAt: new Date(permission.createdAt),
-           updatedAt: new Date(permission.updatedAt),
-         };
-         Permisions.insert(permisson);
-       }
-     db.saveDatabase();
-   }
    
   }
 

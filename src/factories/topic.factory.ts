@@ -1,5 +1,4 @@
 import { Resource, Topics } from '../models/topics.model';
-import { nanoid } from 'nanoid';
 
 export class TopicFactory {
   static create(
@@ -7,10 +6,9 @@ export class TopicFactory {
     name: string,
     content: string,
     createdBy: string,
-    parentTopicId?: number,
-    resources?: Resource[]
+    version: string,
+    resources?: Resource[],
   ): Topics {
-    const version = nanoid();
     const now = new Date();
     return {
       topicId,
@@ -20,7 +18,6 @@ export class TopicFactory {
       updatedAt: now,
       version,
       createdBy,
-      parentTopicId,
       resources: resources || [],
     };
   }
@@ -30,9 +27,9 @@ export class TopicFactory {
     newContent: string,
     updatedBy: string,
     newTopicId: number,
-    resources?: Resource[]
+    version: string,
+    resources?: Resource[],
   ): Topics {
-    const version = nanoid();
     return {
       name: existingTopic.name,
       topicId: newTopicId, 
