@@ -56,8 +56,10 @@ x-api-key: user@example.com
 ```bash
 POST /api/users - Create a new user
 GET /api/users/:email - Get user by email
+GET /api/users/:email - Update user by email
 GET /api/users - Get all users
 ```
+
 #### Topics
 ```bash
 POST /api/topic - Create a new topic
