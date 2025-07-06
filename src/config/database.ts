@@ -6,7 +6,10 @@ import path from 'path';
 import fs from 'fs';
 import { ApiResponse } from '../utils/apiResponse';
 
-const db = new Loki('kb.json', {
+const isTestEnvironment = process.env.NODE_ENV === 'test';
+const dbFilename = isTestEnvironment ? 'test-kb.json' : 'kb.json';
+
+const db = new Loki(dbFilename, {
   autoload: true,
   autosave: true,
   autosaveInterval: 1,
@@ -19,6 +22,8 @@ function databaseInitialize() {
        Users =  db.addCollection<User>('users', { unique: ['email'] });
       } else{
          Users = db.getCollection<User>('users');
+         const users = Users.find();
+          // console.log('Users data:', users);
       }
     
       //Users.clear();

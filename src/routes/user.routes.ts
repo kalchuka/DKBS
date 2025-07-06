@@ -4,7 +4,9 @@ import { authCheck} from '../middleware/authCheck';
 const router = Router();
 
 router.post('/', authCheck,userController.create);
-router.put('/', authCheck, userController.update);
+router.put('/:email', authCheck, userController.update);
+router.get('/:email',authCheck, userController.getByEmail);
 router.get('/',authCheck, userController.getByEmail);
+
 
 export default router;

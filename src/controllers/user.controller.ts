@@ -31,7 +31,7 @@ if (typeof userData !== 'object' || Array.isArray(userData)) {
         return ApiResponse.error(res, "Email and name must be strings", 400);
     }
 
-    if (userData.role && !Object.values(Role).includes(userData.role)) {
+    if (userData.role && !Object.values(Role).includes(userData.role as Role)) {
         return ApiResponse.error(res, "Role must be one of Admin, Editor, or Viewer",400);
     }
        try {
@@ -54,7 +54,7 @@ export const getByEmail = (req: Request, res: Response): void => {
     res.status(404).json({ message: 'User not found' });
     return
   }
-  
+  ApiResponse.success(res, user, 'Users found');
 };
 
 

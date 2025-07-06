@@ -2,10 +2,11 @@
 export interface User {
   name: string;
   email: string;
-  role: Role;
+  role: string;
   createdAt: Date;
   updatedAt: Date;
 }
+
 
 export enum Role {
   Admin = 'Admin',

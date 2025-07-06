@@ -4,7 +4,7 @@ import { User } from '../models/users.model';
 function getUsersRepo() {
   let users = db.getCollection<User>('users');
   if (!users) {
-    users = db.addCollection<User>('users', { unique: ['id'] });
+    users = db.addCollection<User>('users', { unique: ['email'] });    
   }
   return users;
 }
@@ -19,6 +19,13 @@ export function createUser(user: User): User {
 export function getUserByEmail(email: string): User | null {
   const users = getUsersRepo();
   return users.findOne({ email }) || null;
+}
+
+export function getAllUsers(): User[] | null {
+  const users = getUsersRepo();
+  const allUsers = users.find();
+  
+  return allUsers
 }
 
 export function updateUser(email: string, updateFields: Partial<User>): User | null {

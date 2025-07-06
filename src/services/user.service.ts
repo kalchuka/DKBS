@@ -3,6 +3,7 @@ import {
     createUser,
     getUserByEmail,
     updateUser,
+    getAllUsers
 } from '../repositories/users.repositories';
 
 export class UserService {
@@ -14,8 +15,14 @@ export class UserService {
     return createUser(user);
   }
 
-  getByEmailService(email: string): User | null {
-    return getUserByEmail(email);
+  getByEmailService(email: string): User | null | User[] {
+    if (email == undefined) {
+const allUsers =  getAllUsers();
+      return allUsers;
+    }else {
+      const user = getUserByEmail(email);
+      return user;
+    }
   }
 
   updateUserService(email: string, updateFields: Partial<User>): User | null {

@@ -13,23 +13,28 @@ declare global {
   }
   
 const userService = new UserService();
-export function authCheck(req: Request, res: Response, next: NextFunction): void {
-    const api_key = req.headers['api_key'] as string;
+export   function authCheck(req: Request, res: Response, next: NextFunction): void {
+  const api_key = req.headers['x-api-key'] as string;
+  
     if (api_key == "" || !api_key) {
      ApiResponse.error(res, 'Unauthorized', 401);
      return
     }
 
-    const user = userService.getByEmailService(api_key);
-    
-    if (!user) {
-     ApiResponse.error(res, 'Unauthorized', 401);
-     return
-       
-    }
-   
-    req.userDetail = user; 
-    next();
+  const user = userService.getByEmailService(api_key);
+  
+  if (!user || (Array.isArray(user) && user.length === 0)) {
+      ApiResponse.error(res, 'Unauthorized', 401);
+      return;
+  }
+
+  if (Array.isArray(user)) {
+      req.userDetail = user[0]; // Assuming the first user in the array is the intended one
+  } else {
+      req.userDetail = user;
+  }
+  
+  next();
 }
 
 
