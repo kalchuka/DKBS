@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { TopicService } from '../services/topic.service';
 import { Topics } from '../models/topics.model';
 import { ApiResponse } from '../utils/apiResponse';
-import {PermissionStrategy} from '../permissionStrategy/permission';
+import {PermissionStrategy} from '../services/permission.strategy';
 import { request } from 'http';
 import { log } from 'console';
 
