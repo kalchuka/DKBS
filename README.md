@@ -1,5 +1,24 @@
 #  Document knowledge base system
 
+## Features
+### Topic Version Control and Retrieval:
+A topic versioning system for topics where each update does not
+overwrite the existing topic but instead creates a new version.
+### Recursive Topic Retrieval:
+Retrieve a specific version of a topic, given a topic ID, retrieves the topic
+and all its subtopics recursively. The response includes a tree
+structure representing the hierarchy of topics.
+### Custom Algorithms:
+A custom algorithm to find the shortest path between two topics in the topic hierarchy.
+### Advanced OOP concepts
+Abstract classes and interfaces to model the entities and theirbehaviors
+
+Factory (to create different versions of topics),
+
+Strategy (for different user roles and permissions), 
+
+Composite (for hierarchical topics).
+
 ##  Tech
 ```bash
 Database: LokiJS embedded NoSQL database
