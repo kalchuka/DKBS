@@ -35,7 +35,7 @@ npm install
 ```
 ### 🚀 Running the Server
 ```bash
-npm ren dev
+npm run dev
 ```
 #### Server will start on default port (e.g., http://localhost:1230). You can change this in root index.ts
 
