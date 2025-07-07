@@ -1,3 +1,10 @@
+/**
+ * User Repository
+ * This module provides functions to interact with the user collection in the database.
+ * It includes methods for creating, retrieving, updating, and listing users.
+ * @module repositories/users.repositories
+ * @author Chuka <kalchuka@gmail.com>
+ */
 import db from '../config/database';
 import { User } from '../models/users.model';
 

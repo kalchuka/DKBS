@@ -1,3 +1,10 @@
+/**
+ * User Controller
+ * This controller handles user-related HTTP requests such as creating, retrieving, and updating users.
+ * It uses the UserService to perform operations and returns appropriate responses.
+ * @module controllers/user.controller
+ * @author Chuka <kalchuka@gmail.com>
+ */
 import { NextFunction, Request, Response } from 'express';
 import { UserService } from '../services/user.service';
 import { User ,Role} from '../models/users.model';
@@ -46,7 +53,13 @@ if (typeof userData !== 'object' || Array.isArray(userData)) {
 };
 
 
-
+/**
+ * Retrieves a user by email or all users if email is undefined.
+ * @param {Request} req - The request object containing the email parameter.
+ * @param {Response} res - The response object to send the result.
+ * @return {void}
+ * @throws {Error} If an error occurs while retrieving the user.
+ * */
 export const getByEmail = (req: Request, res: Response): void => {
     const userId = req.params.email;
   const user = NewUserService.getByEmailService(userId);
@@ -57,7 +70,13 @@ export const getByEmail = (req: Request, res: Response): void => {
   ApiResponse.success(res, user, 'Users found');
 };
 
-
+/**
+ * Updates a user's information based on the provided email and update fields.
+ * @param {Request} req - The request object containing the email parameter and update fields in the body.
+ * @param {Response} res - The response object to send the result.
+ * @return {void}
+ * @throws {Error} If an error occurs while updating the user.
+ * */
 export const update = (req: Request, res: Response): void => {
     const userId = req.params.email;
   const updated = NewUserService.updateUserService(userId, req.body);

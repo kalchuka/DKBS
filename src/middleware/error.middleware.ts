@@ -1,3 +1,12 @@
+/**
+ * Error handling middleware for Express.js applications.
+ * This middleware logs errors to a file and sends a standardized error response.
+ * It captures details such as the request URL, method, IP address, user ID, and error stack trace.
+ * @module middleware/error.middleware
+ * @author Chuka <kalchuka@gmail.com>
+ * 
+ */
+
 import { Request, Response, NextFunction } from 'express';
 import { ApiResponse } from '../utils/apiResponse';
 import * as fs from 'fs';

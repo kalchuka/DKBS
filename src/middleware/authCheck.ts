@@ -1,3 +1,13 @@
+/**
+ * @file authCheck.ts
+ * @description Middleware to check if the user is authenticated based on the API key.
+ * This middleware checks the 'x-api-key' header and retrieves user details if valid.
+ * If the API key is invalid or missing, it responds with a 401 Unauthorized status.
+ * @module middleware/authCheck
+ * This middleware is used to protect routes that require user authentication.
+ * It checks the API key provided in the request headers and retrieves the user details from the UserService.
+ * @author Chuka <kalchuka@gmail.com>
+ */
 import {Request, Response, NextFunction} from 'express';
 import { UserService } from '../services/user.service';
 import { User } from '../models/users.model';

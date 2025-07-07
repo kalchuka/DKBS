@@ -1,3 +1,10 @@
+/**
+ * * @file topic.repositoriee.ts
+ * * @description This file contains the repository functions for managing topics in the database.
+ * * It includes functions to create, retrieve, update, and delete topics.
+ * * @module repositories/topic.repositoriee
+ * @author Chuka <kalchuka@gmail.com>
+ */
 import db from '../config/database';
 import { Topics } from '../models/topics.model';
 

@@ -1,3 +1,9 @@
+/**
+ * PermissionStrategy class to manage user permissions based on roles. 
+ * It reads permissions from a JSON file and provides methods to check if a user can create, edit, delete, or view topics.
+ * @module services/permission.strategy
+ * @author Chuka <kalchuka@gmail.com>
+ */
 import path from 'path';
 import fs from 'fs';
 import { TopicPermissions } from '../models/permision.model';

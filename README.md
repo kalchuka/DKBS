@@ -88,6 +88,13 @@ GET /api/topic - Get all topics with tree structure
 DELETE /api/topic/:topicId - Delete a topic
 ```
 ##  Extras
+### Sortest Distance
+#### To find the shortest path, locate the getTopic method in topic.controller.ts and locate this line
+```bash
+const path = NewUTopicService.findShortestPath(6, 5, topicsArray);
+```
+#### change the 6 and 5 to the start topicId and the end topic id. When get topic is run the distance would be loged on the console.
+
 ### Project Structure
 ```bash
 config - Configuration files and database setup
